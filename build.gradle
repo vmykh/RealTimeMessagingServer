@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.0.2'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.unbroken-dome.test-sets'
+
+repositories {
+    mavenCentral()
+}
+
+testSets {
+    acceptanceTest { dirName = 'acceptance-test' }
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+acceptanceTest {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut"
+    }
+}
+
+
+
+dependencies {
+    compile 'log4j:log4j:1.2.17'
+    testCompile 'junit:junit:4.11'
+    acceptanceTestCompile 'org.assertj:assertj-core:3.0.0'
+}
+
+project.acceptanceTest {
+    outputs.upToDateWhen { false }
+}
+
+check.dependsOn acceptanceTest
+acceptanceTest.mustRunAfter test
+
+//Ensure that the HTML reports of unit and integration tests are written to different directories.
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+}
