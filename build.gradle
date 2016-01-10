@@ -21,13 +21,17 @@ testSets {
 test {
     testLogging {
         events "passed", "skipped", "failed", "standardOut"
+        exceptionFormat = 'full'
     }
+    testLogging.showStandardStreams = true
 }
 
 acceptanceTest {
     testLogging {
         events "passed", "skipped", "failed", "standardOut"
+        exceptionFormat = 'full'
     }
+    testLogging.showStandardStreams = true
 }
 
 
