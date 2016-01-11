@@ -25,11 +25,11 @@ public final class RTMessagingClientStub {
 	}
 
 	private void initListeners() {
-		socket.on(Events.CHAT_CREATE_SUCCESS_EVENT, new Emitter.Listener() {
+		socket.on(Events.CREATE_CHAT_SUCCESS_EVENT, new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
 				try {
-					eventsMessages.put(Events.CHAT_CREATE_SUCCESS_EVENT);
+					eventsMessages.put(Events.CREATE_CHAT_SUCCESS_EVENT);
 				} catch (InterruptedException e) {
 					throw new RuntimeException(e);
 				}
@@ -76,7 +76,7 @@ public final class RTMessagingClientStub {
 	public boolean createChat(String chatName) throws InterruptedException, JSONException {
 		socket.emit(Events.CREATE_CHAT_EVENT, new JSONObject().put("chatName", chatName));
 		String eventMessage = eventsMessages.poll(10, TimeUnit.SECONDS);
-		if (eventMessage.equals(Events.CHAT_CREATE_SUCCESS_EVENT)) {
+		if (eventMessage.equals(Events.CREATE_CHAT_SUCCESS_EVENT)) {
 			return true;
 		} else if (eventMessage.equals(Events.CREATE_CHAT_ERROR_EVENT)) {
 			return false;

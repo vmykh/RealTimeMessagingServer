@@ -42,7 +42,7 @@ public class BasicUserManagerTest {
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void itShouldThrowExceptionAfterAttepmtToCreateUserWithAlreadyUsedLogin() {
+	public void itShouldThrowExceptionAfterAttemptToCreateUserWithAlreadyUsedLogin() {
 		String robert = "Robert";
 
 		Cookie cookie = userManager.createUser(robert);
