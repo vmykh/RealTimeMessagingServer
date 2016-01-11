@@ -1,6 +1,6 @@
 package dev.vmykh.rtmessaging.transport;
 
-public class ErrorData {
+public final class ErrorData {
 	private final String errorMessage;
 
 	public ErrorData(String errorMessage) {
