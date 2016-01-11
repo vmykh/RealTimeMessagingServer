@@ -11,8 +11,6 @@ import dev.vmykh.rtmessaging.transport.ErrorData;
 import dev.vmykh.rtmessaging.transport.SignInRequestData;
 import dev.vmykh.rtmessaging.transport.SignInSuccessData;
 
-import java.awt.*;
-
 public final class SignInListener implements DataListener<SignInRequestData> {
 
 	private final UserManager userManager;
