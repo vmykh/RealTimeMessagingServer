@@ -8,7 +8,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 /**
  * Value object that encapsulates cookies. It provides proper {@link String} representation of cookies
  */
-public class Cookie {
+public final class Cookie {
 	private static final String COOKIES_STRING_REGEX = "^id(\\d+)$";
 	private static final Pattern COOKIES_PATTERN = Pattern.compile(COOKIES_STRING_REGEX);
 	public final int id;

@@ -2,8 +2,8 @@ package dev.vmykh.rtmessaging;
 
 import com.corundumstudio.socketio.*;
 import com.corundumstudio.socketio.listener.DataListener;
-import dev.vmykh.rtmessaging.controlmessage.SignInRequestMessage;
-import dev.vmykh.rtmessaging.controlmessage.SignInSuccessMessage;
+import dev.vmykh.rtmessaging.transport.SignInRequestData;
+import dev.vmykh.rtmessaging.transport.SignInSuccessData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +25,14 @@ public class RTMessagingServer {
 		config.setPort(port);
 
 		socketIOServer = new SocketIOServer(config);
-		socketIOServer.addEventListener(SIGN_IN_REQUEST_EVENT, SignInRequestMessage.class,
-				new DataListener<SignInRequestMessage>() {
+		socketIOServer.addEventListener(SIGN_IN_REQUEST_EVENT, SignInRequestData.class,
+				new DataListener<SignInRequestData>() {
 					@Override
-					public void onData(SocketIOClient client, SignInRequestMessage data, AckRequest ackSender)
+					public void onData(SocketIOClient client, SignInRequestData data, AckRequest ackSender)
 							throws Exception {
 						String cookie = "abcd" + Math.abs(RANDOM.nextInt(1_000_000_000));
 						logins.add(data.getLogin());
-						client.sendEvent(SIGN_IN_SUCCESS, new SignInSuccessMessage(cookie));
+						client.sendEvent(SIGN_IN_SUCCESS, new SignInSuccessData(cookie));
 						System.out.println("connect for " + data.getLogin());
 					}
 		});

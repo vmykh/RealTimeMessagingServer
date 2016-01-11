@@ -1,6 +1,6 @@
 package dev.vmykh.rtmessaging;
 
-import dev.vmykh.rtmessaging.controlmessage.SignInRequestMessage;
+import dev.vmykh.rtmessaging.transport.SignInRequestData;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -36,7 +36,7 @@ public final class RTMessagingClientStub {
 			@Override
 			public void call(Object... args) {
 				System.out.println("event-connect");
-				SignInRequestMessage requestData = new SignInRequestMessage(login);
+				SignInRequestData requestData = new SignInRequestData(login);
 				JSONObject loginData = new JSONObject(requestData);
 				socket.emit(RTMessagingServer.SIGN_IN_REQUEST_EVENT, loginData);
 				System.out.println("emmitted");

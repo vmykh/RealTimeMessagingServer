@@ -1,11 +1,11 @@
-package dev.vmykh.rtmessaging.controlmessage;
+package dev.vmykh.rtmessaging.transport;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SignInRequestMessage {
+public class SignInRequestData {
 	private final String login;
 
-	public SignInRequestMessage(@JsonProperty("login") String login) {
+	public SignInRequestData(@JsonProperty("login") String login) {
 		this.login = login;
 	}
 
