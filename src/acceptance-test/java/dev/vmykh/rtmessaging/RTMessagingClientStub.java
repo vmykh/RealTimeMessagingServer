@@ -38,10 +38,10 @@ public final class RTMessagingClientStub {
 				System.out.println("event-connect");
 				SignInRequestData requestData = new SignInRequestData(login);
 				JSONObject loginData = new JSONObject(requestData);
-				socket.emit(RTMessagingServer.SIGN_IN_REQUEST_EVENT, loginData);
+				socket.emit(Events.SIGN_IN_REQUEST_EVENT, loginData);
 				System.out.println("emmitted");
 			}
-		}).on(RTMessagingServer.SIGN_IN_SUCCESS, new Emitter.Listener() {
+		}).on(Events.SIGN_IN_SUCCESS_EVENT, new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
 //				System.out.println("inner-sign-in");
