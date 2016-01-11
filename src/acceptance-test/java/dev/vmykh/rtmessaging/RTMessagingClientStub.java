@@ -1,5 +1,6 @@
 package dev.vmykh.rtmessaging;
 
+import dev.vmykh.rtmessaging.controlmessage.SignInRequestMessage;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -7,37 +8,55 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public final class RTMessagingClientStub {
 
+	public static int iter = 0;
+	public static List<String> logins = new ArrayList<>();
+
 	private final Socket socket;
+	private String cookie;
 
 	public RTMessagingClientStub(String uri) throws URISyntaxException {
-		this.socket = IO.socket(uri);
+		IO.Options options = new IO.Options();
+		options.forceNew = true;
+		this.socket = IO.socket(uri, options);
+		this.cookie = null;
 	}
 
-	public boolean signIn(final String login) throws InterruptedException {
+	public String signIn(final String login) throws InterruptedException {
+		logins.add(login);
 		final CountDownLatch latch = new CountDownLatch(1);
+
 		socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
-				JSONObject loginJson;
-				try {
-					loginJson = new JSONObject().put("login", login);
-				} catch (JSONException e) {
-					throw new RuntimeException(e);
-				}
-				socket.emit(RTMessagingServer.SIGN_IN_REQUEST_EVENT, loginJson.toString());
+				System.out.println("event-connect");
+				SignInRequestMessage requestData = new SignInRequestMessage(login);
+				JSONObject loginData = new JSONObject(requestData);
+				socket.emit(RTMessagingServer.SIGN_IN_REQUEST_EVENT, loginData);
+				System.out.println("emmitted");
 			}
 		}).on(RTMessagingServer.SIGN_IN_SUCCESS, new Emitter.Listener() {
 			@Override
 			public void call(Object... args) {
+//				System.out.println("inner-sign-in");
+//				iter++;
+				try {
+					cookie = ((JSONObject)args[0]).getString("cookie");
+				} catch (JSONException e) {
+					throw new RuntimeException(e);
+				}
 				latch.countDown();
 			}
 		});
 		socket.connect();
-		return latch.await(2, TimeUnit.SECONDS);
+		latch.await(15, TimeUnit.SECONDS);
+		socket.close();
+		return cookie;
 	}
 }

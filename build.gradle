@@ -20,7 +20,7 @@ testSets {
 
 test {
     testLogging {
-        events "passed", "skipped", "failed", "standardOut"
+        events "passed", "skipped", "failed"
         exceptionFormat = 'full'
     }
     testLogging.showStandardStreams = true
@@ -28,7 +28,7 @@ test {
 
 acceptanceTest {
     testLogging {
-        events "passed", "skipped", "failed", "standardOut"
+        events "passed", "skipped", "failed"
         exceptionFormat = 'full'
     }
     testLogging.showStandardStreams = true
@@ -37,11 +37,12 @@ acceptanceTest {
 
 
 dependencies {
-    compile 'log4j:log4j:1.2.17'
     compile 'com.corundumstudio.socketio:netty-socketio:1.7.6'
     compile 'io.socket:socket.io-client:0.6.3'
+    compile 'org.slf4j:slf4j-simple:1.7.7'
+    compile 'log4j:log4j:1.2.17'
     testCompile 'junit:junit:4.11'
-    acceptanceTestCompile 'org.assertj:assertj-core:3.0.0'
+    testCompile 'org.assertj:assertj-core:3.0.0'
 }
 
 project.acceptanceTest {
