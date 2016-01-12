@@ -20,10 +20,11 @@ public final class RTMessagingServer {
 		config.setPort(port);
 		UserManager userManager = new BasicUserManager();
 		ChatManager chatManager = new BasicChatManager();
+		SessionManager sessionManager = new SynchronizedSessionManager();
 
 		socketIOServer = new SocketIOServer(config);
 		socketIOServer.addEventListener(Events.SIGN_IN_REQUEST_EVENT,
-				SignInRequestData.class, new SignInListener(userManager));
+				SignInRequestData.class, new SignInListener(userManager, sessionManager));
 		socketIOServer.addEventListener(Events.CREATE_CHAT_EVENT,
 				CreateChatData.class, new CreateChatListener(chatManager));
 	}
