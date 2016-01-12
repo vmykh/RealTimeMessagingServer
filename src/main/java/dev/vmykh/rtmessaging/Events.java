@@ -12,4 +12,7 @@ public final class Events {
 	public static final String CREATE_CHAT_EVENT = "CREATE_CHAT_EVENT";
 	public static final String CREATE_CHAT_SUCCESS_EVENT = "CREATE_CHAT_SUCCESS_EVENT";
 	public static final String CREATE_CHAT_ERROR_EVENT = "CHAT_CREATE_ERROR_EVENT";
+	public static final String JOIN_CHAT_EVENT = "JOIN_CHAT_EVENT";
+	public static final String JOIN_CHAT_SUCCESS_EVENT = "JOIN_CHAT_SUCCESS_EVENT";
+	public static final String JOIN_CHAT_ERROR_EVENT = "JOIN_CHAT_ERROR_EVENT";
 }

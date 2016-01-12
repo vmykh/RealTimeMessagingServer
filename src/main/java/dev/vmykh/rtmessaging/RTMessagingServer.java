@@ -7,8 +7,12 @@ import dev.vmykh.rtmessaging.listener.SignInListener;
 import dev.vmykh.rtmessaging.transport.CreateChatData;
 import dev.vmykh.rtmessaging.transport.SignInRequestData;
 
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 public final class RTMessagingServer {
-	final SocketIOServer socketIOServer;
+	private final SocketIOServer socketIOServer;
 
 	public RTMessagingServer(int port) {
 		Configuration config = new Configuration();
