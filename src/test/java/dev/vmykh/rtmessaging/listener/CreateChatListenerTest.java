@@ -15,7 +15,7 @@ public class CreateChatListenerTest {
 	public JUnitRuleMockery context = new JUnitRuleMockery();
 	private ChatManager chatManager = context.mock(ChatManager.class);
 	SocketIOClient client = context.mock(SocketIOClient.class);
-	private CreateChatListener createChatListener = new CreateChatListener(chatManager, client);
+	private CreateChatListener createChatListener = new CreateChatListener(chatManager);
 
 	@Test
 	public void itShouldCreateChatAndSendSuccessEventToClientIfThereIsNoChatWithSpecifiedName() throws Exception {

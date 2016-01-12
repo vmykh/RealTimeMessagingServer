@@ -22,6 +22,7 @@ public final class RTMessagingClientStub {
 		options.forceNew = true;
 		socket = IO.socket(uri, options);
 		cookie = null;
+		initListeners();
 	}
 
 	private void initListeners() {
@@ -76,6 +77,9 @@ public final class RTMessagingClientStub {
 	public boolean createChat(String chatName) throws InterruptedException, JSONException {
 		socket.emit(Events.CREATE_CHAT_EVENT, new JSONObject().put("chatName", chatName));
 		String eventMessage = eventsMessages.poll(10, TimeUnit.SECONDS);
+		if (eventMessage == null) {
+			throw new IllegalStateException("Didn't receive any answer after createChat command");
+		}
 		if (eventMessage.equals(Events.CREATE_CHAT_SUCCESS_EVENT)) {
 			return true;
 		} else if (eventMessage.equals(Events.CREATE_CHAT_ERROR_EVENT)) {

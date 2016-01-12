@@ -9,11 +9,9 @@ import dev.vmykh.rtmessaging.transport.CreateChatData;
 
 public final class CreateChatListener implements DataListener<CreateChatData> {
 	private final ChatManager chatManager;
-	private final SocketIOClient client;
 
-	public CreateChatListener(ChatManager chatManager, SocketIOClient client) {
+	public CreateChatListener(ChatManager chatManager) {
 		this.chatManager = chatManager;
-		this.client = client;
 	}
 
 	@Override
