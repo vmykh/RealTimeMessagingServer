@@ -23,12 +23,20 @@ public final class BasicChatManager implements ChatManager {
 	}
 
 	@Override
-	public Chat getChat(String name) throws IllegalArgumentException {
-		return null;
+	public Chat getChat(String name) throws IllegalStateException {
+		if (nameToChat.containsKey(name)) {
+			return nameToChat.get(name);
+		} else {
+			throw new IllegalStateException("There is no chat with name: " + name);
+		}
 	}
 
 	@Override
 	public void joinChat(String login, String chatName) throws IllegalStateException {
-		// TODO
+		if (nameToChat.containsKey(chatName)) {
+			nameToChat.get(chatName).addParticipant(login);
+		} else {
+			throw new IllegalStateException("There is no chat with name: " + chatName);
+		}
 	}
 }

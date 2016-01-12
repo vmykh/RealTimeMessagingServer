@@ -2,8 +2,10 @@ package dev.vmykh.rtmessaging;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.ArrayList;
+
+import static org.hamcrest.Matchers.contains;
+import static org.junit.Assert.*;
 
 public final class BasicChatManagerTest {
 
@@ -34,4 +36,32 @@ public final class BasicChatManagerTest {
 		chatManager.createChat(chatName);
 	}
 
+	@Test
+	public void itShouldReturnsAppropriateChat() {
+		String chatName = "KiloChat";
+		BasicChatManager chatManager = new BasicChatManager();
+
+		chatManager.createChat(chatName);
+		Chat chat = chatManager.getChat(chatName);
+
+		assertNotNull(chat);
+		assertEquals(new Chat(chatName, new ArrayList<String>()), chat);
+	}
+
+	@Test
+	public void itShouldJoinUsersIntoChat() {
+		String chatName = "TeraChat";
+		String laura = "Laura";
+		BasicChatManager chatManager = new BasicChatManager();
+
+		chatManager.createChat(chatName);
+		Chat chat = chatManager.getChat(chatName);
+
+		assertEquals(0, chat.getParticipants().size());
+
+		chat.addParticipant(laura);
+
+		chat = chatManager.getChat(chatName);
+		assertThat(chat.getParticipants(), contains(laura));
+	}
 }

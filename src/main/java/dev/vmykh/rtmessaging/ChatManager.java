@@ -23,9 +23,9 @@ public interface ChatManager {
 	 * Returns chat with specified name
 	 * @param name chat name
 	 * @return chat with specifed name
-	 * @throws IllegalArgumentException if there is no chat with specified name
+	 * @throws IllegalStateException if there is no chat with specified name
 	 */
-	Chat getChat(String name) throws IllegalArgumentException;
+	Chat getChat(String name) throws IllegalStateException;
 
 	/**
 	 * Joins user to chat
