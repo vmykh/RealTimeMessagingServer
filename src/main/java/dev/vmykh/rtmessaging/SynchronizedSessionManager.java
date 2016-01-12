@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class SynchronizedSessionManager implements SessionManager {
+public final class SynchronizedSessionManager implements SessionManager {
 	private final Map<UUID, String> sessionIdToLogin = new HashMap<>();
 	private final Map<String, UUID> loginToSessionId = new HashMap<>();
 

@@ -1,5 +1,6 @@
 package dev.vmykh.rtmessaging;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public final class BasicChatManager implements ChatManager {
 	@Override
 	public void createChat(String name) throws IllegalStateException {
 		if (!chatExists(name)) {
-			nameToChat.put(name, new Chat(name));
+			nameToChat.put(name, new Chat(name, new ArrayList<String>()));
 		} else {
 			throw new IllegalStateException("Chat with name \"" + name + "\" already exists");
 		}
@@ -24,5 +25,10 @@ public final class BasicChatManager implements ChatManager {
 	@Override
 	public Chat getChat(String name) throws IllegalArgumentException {
 		return null;
+	}
+
+	@Override
+	public void joinChat(String login, String chatName) throws IllegalStateException {
+		// TODO
 	}
 }

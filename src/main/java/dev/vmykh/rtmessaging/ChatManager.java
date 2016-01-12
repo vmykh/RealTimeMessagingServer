@@ -26,4 +26,12 @@ public interface ChatManager {
 	 * @throws IllegalArgumentException if there is no chat with specified name
 	 */
 	Chat getChat(String name) throws IllegalArgumentException;
+
+	/**
+	 * Joins user to chat
+	 * @param login user login
+	 * @param chatName chat name
+	 * @throws IllegalArgumentException if there is no such chat, or user is already joined
+	 */
+	void joinChat(String login, String chatName) throws IllegalStateException;
 }
