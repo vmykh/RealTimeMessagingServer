@@ -3,8 +3,10 @@ package dev.vmykh.rtmessaging;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOServer;
 import dev.vmykh.rtmessaging.listener.CreateChatListener;
+import dev.vmykh.rtmessaging.listener.JoinChatListener;
 import dev.vmykh.rtmessaging.listener.SignInListener;
 import dev.vmykh.rtmessaging.transport.CreateChatData;
+import dev.vmykh.rtmessaging.transport.JoinChatData;
 import dev.vmykh.rtmessaging.transport.SignInRequestData;
 
 import java.util.UUID;
@@ -27,6 +29,8 @@ public final class RTMessagingServer {
 				SignInRequestData.class, new SignInListener(userManager, sessionManager));
 		socketIOServer.addEventListener(Events.CREATE_CHAT_EVENT,
 				CreateChatData.class, new CreateChatListener(chatManager));
+		socketIOServer.addEventListener(Events.JOIN_CHAT_EVENT,
+				JoinChatData.class, new JoinChatListener(sessionManager, chatManager));
 	}
 
 	public void listen() throws InterruptedException {
